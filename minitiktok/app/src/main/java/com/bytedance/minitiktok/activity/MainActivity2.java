@@ -41,6 +41,7 @@ public class MainActivity2 extends AppCompatActivity {
         btn_first_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //尚未整合成功
             }
         });
         btn_friend.setOnClickListener(new View.OnClickListener() {
