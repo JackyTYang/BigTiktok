@@ -512,9 +512,7 @@ public class VideoActivity extends AppCompatActivity implements SurfaceHolder.Ca
     }
 
     public void init() {
-        Log.e("test", "init");
         if (mSurfaceView == null) {
-            Log.e("test", "init2");
             mSurfaceView = findViewById(R.id.sv_videorecord);
             mSurfaceHolder = mSurfaceView.getHolder();
             mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -528,16 +526,13 @@ public class VideoActivity extends AppCompatActivity implements SurfaceHolder.Ca
     }
 
     private void initCamera() {
-        Log.e("test", "initCamera");
         if (mCamera != null) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
-            System.out.println("===================releaseCamera=============");
         }
         mCamera = Camera.open(mCameraID);
-        System.out.println("===================openCamera=============");
         if (mCamera != null) {
             try {
                 mCamera.setPreviewDisplay(mSurfaceHolder);
@@ -601,8 +596,6 @@ public class VideoActivity extends AppCompatActivity implements SurfaceHolder.Ca
                     CamcorderProfile.get(Camera.CameraInfo.CAMERA_FACING_FRONT, CamcorderProfile.QUALITY_HIGH);
         }
 
-        System.out.println("============mCamcorderProfile============" + mCamcorderProfile.videoFrameWidth
-                + "   " + mCamcorderProfile.videoFrameHeight);
         mMediaRecorder.setProfile(mCamcorderProfile);
         mMediaRecorder.setOutputFile(getOutputMediaFile(1).toString());
 
@@ -672,7 +665,6 @@ public class VideoActivity extends AppCompatActivity implements SurfaceHolder.Ca
             result = (info.orientation - degrees + 360) % 360;
         }
         mOrientation = result;
-        System.out.println("=========orienttaion=============" + result);
         return result;
     }
 
@@ -693,17 +685,14 @@ public class VideoActivity extends AppCompatActivity implements SurfaceHolder.Ca
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.e("test", "onRequestPermissionsResult1: ");
         switch (requestCode) {
             case 100:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED
                         && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
-                    Log.e("test", "onRequestPermissionsResult2: ");
                     havePermission = true;
                     init();
                 } else {
-                    Log.e("test", "onRequestPermissionsResult3: ");
                 }
                 break;
         }
@@ -715,7 +704,6 @@ public class VideoActivity extends AppCompatActivity implements SurfaceHolder.Ca
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        Log.e("test", "surfaceChanged");
         if (havePermission) {
             initCamera();
         }
